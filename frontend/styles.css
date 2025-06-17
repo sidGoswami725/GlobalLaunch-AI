@@ -1,0 +1,82 @@
+body {
+  font-family: system-ui, sans-serif;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  color: #374151;
+}
+
+ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.toggle-btn {
+  cursor: pointer;
+  font-weight: 600;
+  color: #1d4ed8;
+  margin-top: 1rem;
+  display: inline-block;
+  transition: color 0.3s;
+}
+
+.toggle-btn:hover {
+  color: #2563eb;
+}
+
+.collapsible-content {
+  display: none;
+  margin-top: 1rem;
+}
+
+.spinner {
+  border-style: solid;
+  border-width: 4px;
+  border-color: #6366f1 transparent #6366f1 transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  width: 4rem;
+  height: 4rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#chatPanel {
+  transition: right 0.4s ease-in-out;
+}
+
+#chatToggle {
+  transition: transform 0.2s ease-in-out;
+}
+
+#chatToggle:hover {
+  transform: scale(1.05);
+}
+
+

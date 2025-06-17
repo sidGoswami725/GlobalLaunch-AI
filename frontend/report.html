@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Report</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <div class="p-6 max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold" id="countryTitle">Loading...</h1>
+      <button onclick="goBack()" class="text-sm text-indigo-600 hover:underline">⬅ Back to Rankings</button>
+    </div>
+
+    <div id="reportContainer" class="space-y-4"></div>
+  </div>
+
+  <script>
+    const query = new URLSearchParams(window.location.search);
+    const countryCode = query.get("country");
+    const fullNames = {
+  "AGO": "Angola",
+  "ARE": "United Arab Emirates",
+  "ARG": "Argentina",
+  "ARM": "Armenia",
+  "AUS": "Australia",
+  "AUT": "Austria",
+  "AZE": "Azerbaijan",
+  "BDI": "Burundi",
+  "BEL": "Belgium",
+  "BEN": "Benin",
+  "BFA": "Burkina Faso",
+  "BGD": "Bangladesh",
+  "BGR": "Bulgaria",
+  "BHR": "Bahrain",
+  "BHS": "Bahamas",
+  "BIH": "Bosnia and Herzegovina",
+  "BLR": "Belarus",
+  "BLZ": "Belize",
+  "BOL": "Bolivia",
+  "BRA": "Brazil",
+  "BRN": "Brunei",
+  "BTN": "Bhutan",
+  "BWA": "Botswana",
+  "CAF": "Central African Republic",
+  "CAN": "Canada",
+  "CHE": "Switzerland",
+  "CHL": "Chile",
+  "CHN": "China",
+  "CMR": "Cameroon",
+  "COG": "Republic of the Congo",
+  "COL": "Colombia",
+  "COM": "Comoros",
+  "CRI": "Costa Rica",
+  "CYP": "Cyprus",
+  "CZE": "Czech Republic",
+  "DEU": "Germany",
+  "DJI": "Djibouti",
+  "DNK": "Denmark",
+  "DOM": "Dominican Republic",
+  "DZA": "Algeria",
+  "ECU": "Ecuador",
+  "EGY": "Egypt",
+  "ERI": "Eritrea",
+  "ESP": "Spain",
+  "EST": "Estonia",
+  "ETH": "Ethiopia",
+  "FIN": "Finland",
+  "FJI": "Fiji",
+  "FRA": "France",
+  "FSM": "Micronesia",
+  "GAB": "Gabon",
+  "GBR": "United Kingdom",
+  "GEO": "Georgia",
+  "GHA": "Ghana",
+  "GIN": "Guinea",
+  "GMB": "Gambia",
+  "GNB": "Guinea-Bissau",
+  "GRC": "Greece",
+  "GTM": "Guatemala",
+  "GUY": "Guyana",
+  "HKG": "Hong Kong",
+  "HND": "Honduras",
+  "HRV": "Croatia",
+  "HUN": "Hungary",
+  "IDN": "Indonesia",
+  "IND": "India",
+  "IRL": "Ireland",
+  "IRN": "Iran",
+  "IRQ": "Iraq",
+  "ISL": "Iceland",
+  "ISR": "Israel",
+  "ITA": "Italy",
+  "JAM": "Jamaica",
+  "JOR": "Jordan",
+  "JPN": "Japan",
+  "KAZ": "Kazakhstan",
+  "KEN": "Kenya",
+  "KGZ": "Kyrgyzstan",
+  "KHM": "Cambodia",
+  "KIR": "Kiribati",
+  "KOR": "South Korea",
+  "KWT": "Kuwait",
+  "LBN": "Lebanon",
+  "LBR": "Liberia",
+  "LBY": "Libya",
+  "LCA": "Saint Lucia",
+  "LKA": "Sri Lanka",
+  "LSO": "Lesotho",
+  "LTU": "Lithuania",
+  "LUX": "Luxembourg",
+  "LVA": "Latvia",
+  "MAR": "Morocco",
+  "MCO": "Monaco",
+  "MDA": "Moldova",
+  "MDG": "Madagascar",
+  "MDV": "Maldives",
+  "MEX": "Mexico",
+  "MKD": "North Macedonia",
+  "MLI": "Mali",
+  "MLT": "Malta",
+  "MMR": "Myanmar",
+  "MNE": "Montenegro",  
+  "MNG": "Mongolia",
+  "MOZ": "Mozambique",
+  "MRT": "Mauritania",
+  "MUS": "Mauritius",
+  "MWI": "Malawi",
+  "MYS": "Malaysia",
+  "NAM": "Namibia",
+  "NGA": "Nigeria",
+  "NIC": "Nicaragua",
+  "NLD": "Netherlands",
+  "NOR": "Norway",
+  "NPL": "Nepal",
+  "NZL": "New Zealand",
+  "OMN": "Oman",
+  "PAK": "Pakistan",
+  "PAN": "Panama",
+  "PER": "Peru",
+  "PHL": "Philippines",
+  "PLW": "Palau",
+  "PNG": "Papua New Guinea",
+  "POL": "Poland",
+  "PRT": "Portugal",
+  "PRY": "Paraguay",
+  "QAT": "Qatar",
+  "ROU": "Romania", 
+  "RUS": "Russia",
+  "RWA": "Rwanda",
+  "SAU": "Saudi Arabia",
+  "SUD": "Sudan",
+  "SEN": "Senegal",
+  "SGP": "Singapore",
+  "SLB": "Solomon Islands",
+  "SLE": "Sierra Leone",
+  "SLV": "El Salvador",
+  "SMR": "San Marino",
+  "SOM": "Somalia",
+  "SRB": "Serbia", 
+  "SSD": "South Sudan",
+  "SUR": "Suriname",
+  "SVK": "Slovakia",
+  "SVN": "Slovenia",
+  "SWE": "Sweden",
+  "SWZ": "Eswatini",
+  "SYC": "Seychelles",
+  "SYR": "Syria",
+  "TCD": "Chad",
+  "TGO": "Togo",
+  "THA": "Thailand",
+  "TJK": "Tajikistan",
+  "TKM": "Turkmenistan",
+  "TON": "Tonga",
+  "TTO": "Trinidad and Tobago",
+  "TUN": "Tunisia",
+  "TUR": "Turkey",
+  "TUV": "Tuvalu",
+  "TZA": "Tanzania",
+  "UGA": "Uganda",
+  "UKR": "Ukraine",
+  "URY": "Uruguay",
+  "USA": "United States",
+  "UZB": "Uzbekistan",
+  "VEN": "Venezuela",
+  "VNM": "Vietnam",
+  "VUT": "Vanuatu",
+  "WSM": "Samoa",
+  "YEM": "Yemen",
+  "ZAF": "South Africa",
+  "ZMB": "Zambia",
+  "ZWE": "Zimbabwe"
+}; // extend as needed
+
+    function goBack() {
+      sessionStorage.setItem("backFromReport", "1");
+      window.location.href = "/";
+    }
+
+    async function loadReport() {
+      const res = await fetch("/get_reports");
+      const reports = await res.json();
+      const report = reports.find(r => r.country_code === countryCode);
+      if (!report) return;
+
+      const countryFullName = fullNames[countryCode] || countryCode;
+      document.getElementById("countryTitle").innerText = `${countryFullName} (${countryCode})`;
+
+      const container = document.getElementById("reportContainer");
+
+      const sections = [
+        ["\ud83d\udccc Executive Summary", report.executive_summary],
+        ["\ud83c\udfe2 Business Environment", report.business_environment],
+        ["\ud83c\udf10 Infrastructure & Digital", report.infrastructure_and_digital],
+        ["\ud83d\udcca Economic & Trade Outlook", report.economic_and_trade_outlook],
+        ["\u2696\ufe0f Regulatory & Risk", report.regulatory_and_risk]
+      ];
+
+      sections.forEach(([label, content]) => {
+        if (!content) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = `
+          <details class="bg-white dark:bg-gray-800 p-4 rounded shadow" open>
+            <summary class="cursor-pointer font-semibold text-lg">${label}</summary>
+            <div class="mt-2 space-y-2">
+              ${typeof content === "string" ? `<p>${content}</p>` : ""}
+              ${Array.isArray(content) ? formatList(content) : ""}
+            </div>
+          </details>
+        `;
+        container.appendChild(wrapper);
+      });
+
+      // Handle Entry Considerations
+      const entry = report.entry_considerations;
+      if (entry) {
+        const entryWrapper = document.createElement("div");
+        entryWrapper.innerHTML = `
+          <details class="bg-white dark:bg-gray-800 p-4 rounded shadow" open>
+            <summary class="cursor-pointer font-semibold text-lg">\ud83d\ude80 Entry Considerations</summary>
+            <div class="mt-2 space-y-4">
+              ${formatSubsection("Market Opportunity Signals", entry.market_opportunity_signals)}
+              ${formatSubsection("Sector Specific Notes", entry.sector_specific_notes)}
+              ${formatSubsection("Go To Market Advice", entry.go_to_market_advice)}
+            </div>
+          </details>
+        `;
+        container.appendChild(entryWrapper);
+      }
+      loadGraphs(countryCode);
+    }
+
+    async function loadGraphs(code) {
+      const categories = [
+        { key: "ease_of_doing_business", label: "Ease of Doing Business" },
+        { key: "macroeconomic_indicators", label: "Macroeconomic Indicators" },
+        { key: "digital_connectivity", label: "Digital Connectivity" },
+        { key: "trade_profile", label: "Trade Profile" }
+      ];
+
+      const graphSection = document.createElement("div");
+      graphSection.className = "mt-10";
+
+      const title = document.createElement("h2");
+      title.textContent = "📊 Country Indicator Graphs";
+      title.className = "text-2xl font-bold mb-4 text-indigo-700 dark:text-indigo-300";
+      graphSection.appendChild(title);
+
+      const grid = document.createElement("div");
+      grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-6";
+
+      for (const cat of categories) {
+        try {
+          const res = await fetch(`/get_graph/${code}/${cat.key}`);
+          if (!res.ok) continue;
+
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+
+          const card = document.createElement("div");
+          card.className = "bg-white dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200 dark:border-gray-600";
+
+          card.innerHTML = `
+            <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">${cat.label}</h3>
+            <img src="${url}" alt="${cat.label}" class="w-full rounded-md border dark:border-gray-700">
+          `;
+          grid.appendChild(card);
+        } catch (err) {
+          console.warn(`Could not load graph for ${cat.key}:`, err);
+        }
+      }
+
+      graphSection.appendChild(grid);
+      document.getElementById("reportContainer").appendChild(graphSection);
+    }
+
+    function formatList(items) {
+      return `<ul class="list-disc pl-6">${items.map(i => `<li>${i}</li>`).join("")}</ul>`;
+    }
+
+    function formatSubsection(title, items) {
+      if (!items || items.length === 0) return "";
+      return `
+        <div>
+          <h4 class="font-medium text-indigo-600">${title}</h4>
+          <ul class="list-disc pl-6 mt-1">${items.map(i => `<li>${i}</li>`).join("")}</ul>
+        </div>
+      `;
+    }
+
+    loadReport();
+  </script>
+</body>
+</html>
