@@ -79,7 +79,7 @@ GlobalLaunchAI/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Arshbir1/GlobalLaunchAI.git
+git clone https://github.com/sidGoswami725/GlobalLaunch-AI.git
 cd GlobalLaunchAI
 ```
 
@@ -115,7 +115,7 @@ Access the app at [http://localhost:8000](http://localhost:8000)
 
 ## 🤝 Contribute & Support
 
-- **GitHub**: [GlobalLaunchAI Repo](https://github.com/Arshbir1/GlobalLaunchAI)
+- **GitHub**: [GlobalLaunchAI Repo](https://github.com/sidGoswami725/GlobalLaunch-AI)
 - **Issues**: Bug reports and feature requests welcome!
 - **Contact**: Reach out via Discussions or Email
 
